@@ -19,9 +19,16 @@ from groq import AsyncGroq
 from twilio.request_validator import RequestValidator
 from twilio.rest import Client as TwilioClient
 
+import sentry_sdk
 from prompts import SYSTEM_PROMPT_AR, SYSTEM_PROMPT_EN, TOOLS
 
 load_dotenv()
+
+sentry_sdk.init(
+    dsn=os.getenv("SENTRY_DSN", ""),
+    traces_sample_rate=0.2,
+    send_default_pii=False,
+)
 
 logging.basicConfig(
     level=logging.INFO,
